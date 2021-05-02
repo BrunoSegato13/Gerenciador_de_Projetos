@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{base :: head}"></head>
+
+<body>
+<header th:replace="~{base :: header}"></header>
+<div class="container ">
+  <div class="card" th:object="${projeto}">
+    <div class="card-header">
+      <h3>Projeto: <span th:text="${projeto.nome}"></span></h3>
+    </div>
+
+    <div class="card-body flex-d mt-2">
+      <div class="card-text mb-2">
+        <h4>Descrição</h4>
+        <div class="col-md-12 p-2 border border-secondary"><span  th:text="${projeto.descricao}">Descrição do Projeto</span></div>
+      </div>
+      <div class="row mb-2">
+        <div class="col-md-4">Orcçamento : <span th:text="${'R$ ' + #numbers.formatDecimal(projeto.orcamento,3,'POINT',2,'COMMA')}"></span></div>
+        <div class="col-md-4">Data da inicio: <span th:text="${#temporals.format(projeto.dataInicio, 'dd/MM/yyyy')}"></span></div>
+        <div class="col-md-4">Fim previsto: <span th:text="${#temporals.format(projeto.dataPrevisaoFim, 'dd/MM/yyyy')}"></span></div>
+      </div>
+      <div class="row mb-3">
+        <div class="col-md-4">Status: <span  th:text="${projeto.status}"></span></div>
+        <div class="col-md-4">Risco: <span th:text="${projeto.risco}"></span></div>
+        <div class="col-md-4">Data fim: <span th:text="${#temporals.format(projeto.dataFim, 'dd/MM/yyyy')}"></span></div>
+      </div>
+      <div class="row border-bottom-2 d-flex justify-content-between">
+        <div class="col-md-4" th:object="${gerente}">Gerente: <span th:text="${gerente.nome}"></span></div>
+        <a  th:href="@{/editarProjetoForm/{id}(id=${projeto.idProjeto})}"class="col-md-2 btn btn-primary">Editar</a>
+        <a  th:href="@{/finalizarProjeto/{id}(id=${projeto.idProjeto})}" class="col-md-2 btn btn-success">Finalizar projeto</a>
+        <a  th:href="@{/deletarProjeto/{id}(id=${projeto.idProjeto})}" class="col-md-3 btn btn-danger">Deletar</a>
+      </div>
+      <div class="mt-3">
+        <div class="card-header">
+          Participantes do projeto
+        </div>
+        <table class="table table-light table-striped table-hover">
+          <thead>
+          <tr>
+            <th scope="col">Nome</th>
+            <th scope="col">Data de Nascimento</th>
+            <th scope="col">CPF</th>
+            <th scope="col">Funcionário</th>
+            <th scope="col">Ações</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr scope="row" th:each="pessoa : ${gerente}">
+            <td th:text="${pessoa.nome}"></td>
+            <td th:text="${pessoa.dataNascimento}"></td>
+            <td th:text="${pessoa.cpf}" datatype="date"></td>
+            <td th:text="${pessoa.funcionario}" datatype="boolean"></td>
+            <td><a  class="btn btn-primary">Remover do projeto</a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{base :: head}"></head>
+<body>
+<header th:replace="~{base :: header}"></header>
+<div class="container">
+  <h1>Cadastro de Projetos</h1>
+  <div class="card">
+    <form id="projeto" class="card-body  " action="#" th:action="@{/salvarProjeto}" th:object="${projeto}" method="POST">
+      <input type="hidden" th:field="*{idProjeto}"/>
+      <label for="nome">Nome do Projeto</label>
+      <input type="text" th:field="*{nome}" id="nome" class="form-control mb-4 col-4"/>
+      <div class="d-flex flex-column mb-3">
+        <label for="descricao">Descrição do projeto</label>
+        <textarea class="width-100%" th:field="*{descricao}" id="descricao"></textarea>
+      </div>
+      <div class="form-group d-flex flex-row justify-content-between">
+        <div>
+          <label for="dataInicio">Data de inicio</label>
+          <input type="date" th:field="*{dataInicio}" id="dataInicio" class="form-control mb-2"/>
+        </div>
+        <div>
+          <label for="dataPrevisaoFim">Previsão de término</label>
+          <input type="date" th:field="*{dataPrevisaoFim}" id="dataPrevisaoFim" class="form-control mb-2"/>
+        </div>
+        <div>
+          <label for="orcamento">Orçamento</label>
+          <input type="text" th:field="*{orcamento}" id="orcamento" class="form-control mb-2"
+                 onkeypress="$(this).mask('R$ 999.990,00');"/>
+        </div>
+      </div>
+
+      <div class="form-group d-flex flex-row justify-content-between">
+        <div class="form-group">
+          <label for="gerente">Gerente</label>
+          <select form="projeto" class="form-control" th:field="*{gerente}" id="gerente">
+            <option value="0">Selecione o gerente</option>
+            <option th:each="pessoa : ${pessoaList}" th:value="${pessoa.idPessoa}" th:text="${pessoa.nome}"> select="selected"</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="status">Status</label>
+          <select form="projeto" class="form-control" th:field="*{status}" id="status">
+            <option value="EM_ANALISE">Em Análise</option>
+            <option value="ANALISE_REALIZADA">Análise Realizada</option>
+            <option value="ANALISE_APROVADA">Análise Aprovada</option>
+            <option value="INICIADO">Iniciado</option>
+            <option value="PLANEJAMENTO">Planejamento</option>
+            <option value="EM_ANDAMENTO">Em Andamento</option>
+            <option value="ENCERRADO">Encerrado</option>
+            <option value="CANCELADO">Cancelado</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="risco">Risco</label>
+          <select form="projeto" class="form-control" th:field="*{risco}" id="risco">
+            <option value="BAIXO_RISCO">Baixo</option>
+            <option value="MEDIO_RISCO">Médio</option>
+            <option value="ALTO_RISCO">Alto</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-info col-2 mt-3">Save</button>
+    </form>
+  </div>
+</div>
+</body>
+</html>

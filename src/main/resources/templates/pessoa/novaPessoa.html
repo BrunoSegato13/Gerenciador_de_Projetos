@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{base :: head}"></head>
+<body>
+<header th:replace="~{base :: header}"></header>
+<div class="container">
+  <h1>Cadastro de pessoas</h1>
+    <div class="card">
+      <form class="card-body d-flex flex-column" action="#" th:action="@{salvarPessoa}" th:object="${pessoa}" method="POST">
+        <div class="form-group d-flex flex-row">
+          <div class="mr-2">
+            <label for="nome">Nome Completo</label>
+            <input type="text" th:field="*{nome}" id="nome" class="form-control mb-4 col-md-6"/>
+          </div>
+          <div>
+            <label for="cargo">Cargo</label>
+            <input type="text" th:field="*{cargo}" id="cargo" class="form-control mb-4 col-md-6"/>
+          </div>
+        </div>
+        <div class="form-group d-flex flex-row">
+          <div class="mr-2">
+            <label for="dataNascimento">Data de Nascimento</label>
+            <input type="date" th:field="*{dataNascimento}" id="dataNascimento" class="form-control mb-4 col-6"/>
+          </div>
+          <div>
+            <label for="cpf">CPF</label>
+            <input type="text" th:field="*{cpf}" id="cpf" class="form-control mb-4 col-6"
+                 onkeypress="$(this).mask('000.000.000-00');"/>
+          </div>
+        </div>
+        <div class="input-funcionario mb-2">
+          <input type="checkbox" th:field="*{funcionario}" id="funcionario" class="form-check-input mr-1" value="">
+          <label for="funcionario">Funcionário?</label>
+        </div>
+        <button type="submit" class="btn btn-info col-2">Save</button>
+      </form>
+    </div>
+
+</div>
+
+</body>
+</html>

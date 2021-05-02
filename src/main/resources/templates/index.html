@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="~{base :: head}"></head>
+<body>
+<header th:replace="~{base :: header}"></header>
+<div class="list container">
+  <H1 class="mb-3">Gerenciador de Projetos</H1>
+  <a th:href="@{/novoProjetoForm}" class="btn btn-primary mb-2">Add Projeto</a>
+  <table class="table table-light table-striped table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Nome</th>
+        <th scope="col">Data de inicio</th>
+        <th scope="col">Fim previsto</th>
+        <th scope="col">Status</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr scope="row" th:each="projeto : ${projetoList}">
+        <td th:text="${projeto.nome}"></td>
+        <td th:text="${projeto.dataInicio}"></td>
+        <td th:text="${projeto.dataPrevisaoFim}" datatype="date"></td>
+        <td th:text="${projeto.status}"></td>
+        <td><a th:href="@{/detalhesProjeto/{id}(id=${projeto.idProjeto})}" class="btn btn-primary">Detalhes</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
